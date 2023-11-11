@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'patients.apps.PatientsConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'PyJwt'
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",

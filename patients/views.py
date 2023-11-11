@@ -62,13 +62,17 @@ def update_appointment(request, variable):
         data = json.loads(request.body.decode('utf-8'))
         document_id = ObjectId(variable)
         original_value = Appointment_collection.find_one({'_id': document_id})
-        print(original_value)
         date = replace_none_with_default(data.get('date'), original_value.get('date'))
         time = replace_none_with_default(data.get('time'), original_value.get('time'))
-        new_value = {'$set': {'time': time, 'date': date}}
+        appointment_id = replace_none_with_default(data.get('slot_id'), original_value.get('slot_id'))
+        new_value = {'$set': {'time': time, 'date': date, 'id': appointment_id}}
         appointment = Appointment_collection.find_one_and_update({'_id': document_id}, new_value)
-
         if appointment:
+            slot_id = appointment.get('solt_id')
+            new_value = {'$set': {'available': True}}
+            object_id = ObjectId(slot_id)
+            sol = Slots_collection.find_one_and_update({"_id": object_id}, new_value)
+            print(sol)
             return JsonResponse(
                 {'status': 'success', 'message': 'Appointment added successfully', 'data': {'date': date,
                                                                                             'time': time}},
