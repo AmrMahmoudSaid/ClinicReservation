@@ -13,7 +13,8 @@ from doctors.mongoDb_utils import convert_array_to_serializable, replace_none_wi
 
 
 def find_all_doctors():
-    persons = Doctors_collection.find({}, {'name': 0, '_id': 0})
+    persons = Doctors_collection.find({}, {'name': 1, '_id': 1})
+    print(persons)
     return list(persons)
 
 
@@ -22,7 +23,7 @@ def get_all_doctors(request):
     persons = find_all_doctors()
     print(persons)
     send = convert_array_to_serializable(persons)
-    return JsonResponse({'status': 'success', 'message': 'Slot added successfully', 'length:': len(persons), 'data': send},
+    return JsonResponse({'status': 'success', 'length:': len(persons), 'data': send},
                         status=status.HTTP_200_OK)
 
 
@@ -32,6 +33,7 @@ def add_slot(request):
     user = Doctors_collection.find_one({"email": user_email})
     if user:
         data = json.loads(request.body.decode('utf-8'))
+        print(data)
         date = data.get('date')
         time = data.get('time')
         slot = {
@@ -100,12 +102,16 @@ def delete_slot(request, variable):
 def get_slots(request):
     user_email = get_user(request)
     user = Doctors_collection.find_one({"email": user_email})
+    print(user)
     if user:
         slots = get_all_slots(user_email)
         if slots:
             send = convert_array_to_serializable(slots)
 
             return JsonResponse({'status': 'success', 'length:': len(slots), 'data': send},
+                                status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'status': 'success', 'length:': 0},
                                 status=status.HTTP_200_OK)
     else:
         return JsonResponse({'error': 'Invalid credentials'}, status=status.HTTP_403_FORBIDDEN)

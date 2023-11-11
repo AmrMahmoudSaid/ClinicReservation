@@ -62,6 +62,8 @@ def sign_up(request):
                 new_patient = {
                     'name': name,
                     'email': email,
+                    'password': password,
+                    'confirmed_password': confirmedPassword,
                     'role': role
                 }
                 saved = Patient_collection.insert_one(new_patient)
