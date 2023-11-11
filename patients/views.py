@@ -27,10 +27,12 @@ def add_appointment(request, variable):
         slot = Slots_collection.find_one({'_id': document_id})
         if slot:
             if slot.get('available'):
+                doctor = Doctors_collection.find_one({'email': slot.get('doctor')})
                 appointment = {
                     'patient name': user.get('name'),
                     'patient': user_email,
                     'doctor email': slot.get('doctor'),
+                    'doctor name': doctor.get('name'),
                     'time': slot.get('time'),
                     'date': slot.get('date')
                 }
