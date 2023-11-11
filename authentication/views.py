@@ -35,6 +35,8 @@ def sign_up(request):
         email = data.get('email')
         password = data.get('password')
         confirmedPassword = data.get('confirmedPassword')
+        if password != confirmedPassword:
+            return Response({"message": "password not the same"}, status=status.HTTP_400_BAD_REQUEST)
         role = data.get('role')
         if role == 'DOCTOR':
             check = Doctors_collection.find_one({"email": email})
