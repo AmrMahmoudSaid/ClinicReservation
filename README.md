@@ -14,4 +14,7 @@ Make sure you have the following installed:
 - pip install pymongo
 - pip install djangorestframework
 - pip install django-cors-headers
-- pip install PyJWT 
+- pip install PyJWT
+
+## Run the Development Server
+- python manage.py runserver
