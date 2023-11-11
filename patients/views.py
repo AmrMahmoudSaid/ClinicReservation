@@ -31,8 +31,8 @@ def add_appointment(request, variable):
                 appointment = {
                     'patient name': user.get('name'),
                     'patient': user_email,
-                    'doctor email': slot.get('doctor'),
-                    'doctor name': doctor.get('name'),
+                    'doctor_email': slot.get('doctor'),
+                    'doctor_name': doctor.get('name'),
                     'time': slot.get('time'),
                     'date': slot.get('date')
                 }
