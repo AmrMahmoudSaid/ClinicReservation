@@ -34,7 +34,8 @@ def add_appointment(request, variable):
                     'doctor_email': slot.get('doctor'),
                     'doctor_name': doctor.get('name'),
                     'time': slot.get('time'),
-                    'date': slot.get('date')
+                    'date': slot.get('date'),
+                    'is_updated': False
                 }
                 Appointment_collection.insert_one(appointment)
                 new_value = {'$set': {'available': False}}
@@ -75,7 +76,8 @@ def update_appointment(request, variable):
             print(sol)
             return JsonResponse(
                 {'status': 'success', 'message': 'Appointment added successfully', 'data': {'date': date,
-                                                                                            'time': time}},
+                                                                                            'time': time, 'doctor_name':
+                                                                                                appointment.get('doctor_name')}},
                 status=status.HTTP_200_OK)
         else:
             return Response({"message": "updated failed", "data": appointment}, status=status.HTTP_400_BAD_REQUEST)
