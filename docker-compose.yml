@@ -1,16 +1,18 @@
-version: 3.9
+version: '3.9'
 
 services:
-  django:
-    image: django-docker:0.0.1
-    build: .
+  web:
+    image: clinicbackend
+    container_name: clinicbackendcontainer
+    environment:
+      - MONGO_URL=mongodb://mongodb_container:27017
+      - DB_NAME=clinic_reservation
     ports:
       - "8000:8000"
+    depends_on:
+      - mongo
   mongo:
     image: mongo
     container_name: mongodb_container
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ""
     ports:
       - "27017:27017"
