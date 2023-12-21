@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   web:
-    image: clinicbackend
+    image: amrmahmoud377/backend
     container_name: clinicbackendcontainer
     environment:
       - MONGO_URL=mongodb://mongodb_container:27017
@@ -12,7 +12,7 @@ services:
     depends_on:
       - mongo
   mongo:
-    image: mongo
+    image: amrmahmoud377/database
     container_name: mongodb_container
     ports:
       - "27017:27017"
