@@ -1,0 +1,15 @@
+apiVersion: sources.knative.dev/v1
+kind: ContainerSource
+metadata:
+  name: clinicbackend-source
+spec:
+  serviceAccountName: build-bot
+  template:
+    spec:
+      containers:
+        - image: amrmahmoud377/backend
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongodb_container:27017
+            - name: DB_NAME
+              value: clinic_reservation

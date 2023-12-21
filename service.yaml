@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: clinicbackendcontainer
+spec:
+  template:
+    spec:
+      containers:
+        - image: amrmahmoud377/backend
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongodb_container:27017
+            - name: DB_NAME
+              value: clinic_reservation
+  traffic:
+    - latestRevision: true
